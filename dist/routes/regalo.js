@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const session_1 = require("../middleware/session");
+const regalo_controller_1 = require("../controllers/regalo.controller");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get('/:idBoda', session_1.comprobarJWT, regalo_controller_1.ObtenerRegalo);
+router.post('/editar', session_1.comprobarJWT, regalo_controller_1.EditarRegalo);

@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const bodas_controller_1 = require("../controllers/bodas.controller");
+const session_1 = require("../middleware/session");
+const upload_1 = require("../middleware/upload");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get('/:url', bodas_controller_1.obtenerBodaPorUrl);
+router.get('/', session_1.comprobarJWT, bodas_controller_1.obtenerBodas);
+router.post('/crear', session_1.comprobarJWT, upload_1.uploadFotosNovios.fields([{ name: 'noviaFoto', maxCount: 1 }, { name: 'novioFoto', maxCount: 1 }]), bodas_controller_1.crearBoda);
+router.put('/editar/:idBoda', session_1.comprobarJWT, upload_1.uploadFotosNovios.fields([{ name: 'noviaFoto', maxCount: 1 }, { name: 'novioFoto', maxCount: 1 }]), bodas_controller_1.editarBoda);
+router.put('/eliminar/:idBoda', session_1.comprobarJWT, bodas_controller_1.EliminarBoda);
+router.get('/detalle/:idBoda', session_1.comprobarJWT, bodas_controller_1.obtenerDetalle);

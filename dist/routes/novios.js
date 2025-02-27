@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const session_1 = require("../middleware/session");
+const novios_controller_1 = require("../controllers/novios.controller");
+const upload_1 = require("../middleware/upload");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get('/:idBoda', session_1.comprobarJWT, novios_controller_1.ObtenerNovios);
+router.post('/editar', session_1.comprobarJWT, upload_1.uploadFotosNovios.fields([{ name: 'noviaFoto', maxCount: 1 }, { name: 'novioFoto', maxCount: 1 }]), novios_controller_1.EditarNovios);
