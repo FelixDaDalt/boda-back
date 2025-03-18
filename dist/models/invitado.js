@@ -49,6 +49,11 @@ class invitado extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.BOOLEAN,
                 allowNull: false,
                 defaultValue: 0
+            },
+            celiaco: {
+                type: sequelize_1.DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: 0
             }
         }, {
             sequelize,

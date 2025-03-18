@@ -11,6 +11,7 @@ interface confirmacion{
     confirmacion:number
     vegetariano:number
     menor:number
+    celiaco:number
 }
 
 interface nuevaInvitacion{
@@ -56,6 +57,7 @@ const confirmar = async (key: string, confirmacion: confirmacion[]) => {
                 invitadoEncontrado.confirmado = conf.confirmacion;
                 invitadoEncontrado.vegetariano = conf.vegetariano;
                 invitadoEncontrado.menor = conf.menor;
+                invitadoEncontrado.celiaco = conf.celiaco;
             }
         }
 
@@ -148,20 +150,28 @@ const obtenerInvitaciones = async (userId:number, idBoda:string) => {
         })
 
         let cantidadInvitados = 0;
-            let cantidadConfirmados = 0;
-            let cantidadNoConfirmados = 0;
-
+        let cantidadConfirmados = 0;
+        let cantidadNoConfirmados = 0;
+        let cantidadMenores = 0;
+        let cantidadVegetarianos = 0;
+        let cantidadCeliacos = 0;
         invitaciones.forEach((invitacion) => {
-            // Recorremos los invitados de la invitación
-            invitacion.invitados.forEach((invitado) => {
-                cantidadInvitados++;
-                if (invitado.confirmado == 1) {
-                    cantidadConfirmados++;
-                } else if (invitado.confirmado == 0) {
-                    cantidadNoConfirmados++;
-                }
-            });
-        });
+          // Recorremos los invitados de la invitación
+          invitacion.invitados.forEach((invitado) => {
+              cantidadInvitados++;
+              // Solo contar los invitados confirmados
+              if (invitado.confirmado == 1) {
+                  cantidadConfirmados++;
+                  
+                  // Si está confirmado, evaluar otras condiciones
+                  if (invitado.menor) cantidadMenores++;
+                  if (invitado.vegetariano) cantidadVegetarianos++;
+                  if (invitado.celiaco) cantidadCeliacos++;
+              } else if (invitado.confirmado == 0) {
+                  cantidadNoConfirmados++;
+              }
+          });
+      });
 
         transaction.commit()
 
@@ -169,6 +179,9 @@ const obtenerInvitaciones = async (userId:number, idBoda:string) => {
             cantidadInvitados:cantidadInvitados,
             cantidadConfirmados:cantidadConfirmados,
             cantidadNoConfirmados:cantidadNoConfirmados,
+            cantidadMenores:cantidadMenores,
+            cantidadVegetarianos:cantidadVegetarianos,
+            cantidadCeliacos:cantidadCeliacos,
             invitaciones
         };
         

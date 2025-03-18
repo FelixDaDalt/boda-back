@@ -9,4 +9,4 @@ exports.router = router;
 // Definir la ruta con el middleware y el manejador
 router.get('/:url', captura_controller_1.ObtenerCapturas);
 router.put('/megusta/:url', captura_controller_1.MeGusta);
-router.post('/subir', capturaUpload_1.uploadCaptura, captura_controller_1.SubirCaptura);
+router.post('/subir', capturaUpload_1.uploadCaptura, capturaUpload_1.compressImage, capturaUpload_1.guardarCaptura, captura_controller_1.SubirCaptura);

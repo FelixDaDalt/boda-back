@@ -132,11 +132,13 @@ const obtenerCapturas = async (url, cod, page = 1, limit = 10) => {
             transaction,
             limit,
             offset,
+            order: [['fecha', 'DESC'], ['hora', 'DESC']],
             include: [{
                     model: megusta_1.megusta,
                     as: 'megusta',
-                    required: false
-                }]
+                    required: false,
+                }],
+            group: ['id']
         });
         // Recorre las fotos y agrega el campo 'megusta' y 'cantidad_megusta' a la respuesta
         const fotosConMegusta = fotos.map(foto => {
@@ -153,7 +155,7 @@ const obtenerCapturas = async (url, cod, page = 1, limit = 10) => {
             return respuesta;
         });
         transaction.commit();
-        return { fotos: fotosConMegusta, total, totalPages: Math.ceil(total / limit), currentPage: page };
+        return { fotos: fotosConMegusta, total, totalPages: Math.ceil(Number(total.length) / limit), currentPage: page };
     }
     catch (e) {
         await transaction.rollback();

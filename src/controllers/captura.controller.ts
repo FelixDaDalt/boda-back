@@ -75,8 +75,8 @@ const SubirCaptura = async (req: RequestExt, res: Response) => {
 
             // Obtener fecha y hora actual
             const now = new Date();
-            const fecha = now.toISOString().split('T')[0]; // Formato: YYYY-MM-DD
-            const hora = now.toTimeString().split(' ')[0]; // Formato: HH:MM:SS
+            const fecha = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`; // Formato: YYYY-MM-DD
+            const hora = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
 
             const captura: nuevaCaptura = {
                 boda_url: bodaUrl,

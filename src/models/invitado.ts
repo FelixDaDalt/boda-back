@@ -12,6 +12,7 @@ export interface invitadoAttributes {
   confirmado: number;
   vegetariano: number;
   menor: number;
+  celiaco: number;
 }
 
 export type invitadoPk = "id";
@@ -29,6 +30,7 @@ export class invitado extends Model<invitadoAttributes, invitadoCreationAttribut
   confirmado!: number;
   vegetariano!: number;
   menor!: number;
+  celiaco!: number;
 
   // invitado belongsTo invitacion via id_invitacion
   id_invitacion_invitacion!: invitacion;
@@ -79,6 +81,11 @@ export class invitado extends Model<invitadoAttributes, invitadoCreationAttribut
       defaultValue: 0
     },
     menor: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
+    },
+    celiaco: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: 0

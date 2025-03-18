@@ -267,7 +267,8 @@ const obtenerBodaInvitacion = async (url, cod) => {
                     nombre: `${i.nombre}, ${i.apellido}`,
                     confirmado: i.confirmado,
                     vegetariano: i.vegetariano,
-                    menor: i.menor
+                    menor: i.menor,
+                    celiaco: i.celiaco
                 })) || []
             },
             eventos: bodaDetalle?.secciones[0]?.eventos == 1 ? bodaDetalle?.eventos?.map(e => ({
